@@ -1,0 +1,28 @@
+orderid	customerid	campaignid	orderdate	city	state	zipcode	paymenttype	totalprice	numorderlines	numunits
+1002854	45978	2141	2009-10-13 00:00:00	NEWTON	MA	02459	VI	190	3	3
+1002855	125381	2173	2009-10-13 00:00:00	NEW ROCHELLE	NY	10804	VI	10	1	1
+1002856	103122	2141	2011-06-02 00:00:00	MIAMI	FL	33137	AE	35.22	2	2
+1002857	130980	2173	2009-10-14 00:00:00	E RUTHERFORD	NJ	07073	AE	10	1	1
+1002886	48553	2141	2010-11-19 00:00:00	BALTIMORE	MD	21218	VI	10	1	1
+1002887	106150	2173	2009-10-15 00:00:00	ROWAYTON	CT	06853	AE	10	1	1
+
+
+create 'table_orders', 'orders' ; 
+
+put 'table_orders', '1002854', 'orders:customerid', '45978'
+put 'table_orders', '1002854', 'orders:campaignid', '2141'
+put 'table_orders', '1002854', 'orders:orderdate', '2009-10-13 00:00:00'
+put 'table_orders', '1002854', 'orders:city', 'NEWTON'
+put 'table_orders', '1002854', 'orders:state', 'MA'
+
+put 'table_orders', '1002855', 'orders:customerid', '125381'
+put 'table_orders', '1002855', 'orders:campaignid', '2173'
+put 'table_orders', '1002855', 'orders:orderdate', '2009-10-13 00:00:00'
+put 'table_orders', '1002855', 'orders:city', 'NEW ROCHELLE'
+put 'table_orders', '1002855', 'orders:state', 'NY'
+
+put 'table_orders', '1002856', 'orders:customerid', '103122'
+put 'table_orders', '1002856', 'orders:campaignid', '2141'
+put 'table_orders', '1002856', 'orders:orderdate', '2011-06-02 00:00:00'
+put 'table_orders', '1002856', 'orders:city', 'MIAMI'
+put 'table_orders', '1002856', 'orders:state', 'FL'

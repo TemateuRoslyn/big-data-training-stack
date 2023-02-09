@@ -1,0 +1,222 @@
+# Docker compose file to run the pocs-bddbility project.
+version: '3.3'
+
+services:
+
+  # ===================
+  #        MYSQL 
+  # ===================
+  
+  big-data-training-mysql:
+    image: mysql:5.7
+    volumes:
+      - /home/maestros/devops-space/bigdata/data/bigdata-training/deployment/docker/volumes/mysql/data:/var/lib/mysql
+      - /home/maestros/devops-space/bigdata/logs/bigdata-training/deployment/docker/logs/mysql:/var/log/mysql
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci
+    restart: always
+    environment:
+      MYSQL_DATABASE: bigdata_test_db
+      MYSQL_USER: userBigdata
+      MYSQL_PASSWORD: 6gUSN9N_/.mJ686
+      MYSQL_ROOT_PASSWORD: 6gUSN9N_/.mJ686
+      MYSQL_TCP_PORT: 3308
+    ports:
+      - "3308:3308"
+    expose:
+      - 3308
+    networks:
+      - bigdata-training
+
+      
+        
+  # ===================
+  #    SCALA BACKEND 
+  # ===================
+
+  big-data-training-scala-backend:
+    depends_on:
+      - big-data-training-mysql
+    image: big-data-training-scala-backend
+    volumes:
+      - /home/maestros/devops-space/bigdata/logs/bigdata-training/deployment/docker/logs/big-data-training-scala-backend/tomcat:/usr/local/tomcat/logs
+      - /home/maestros/devops-space/bigdata/logs/bigdata-training/deployment/docker/logs/big-data-training-scala-backend/bigdata-training:/home/logs
+      - /home/maestros/devops-space/bigdata/data/bigdata-training/deployment/docker/volumes/big-data-training-scala-backend/bigdata-training:/home/data
+    build:
+      context: ../../src/backend/scala/big-data-training-prod
+      dockerfile: ./Dockerfile
+      args:
+          JAVA_OPTS: -Xms128M
+          MVN_PROFILE: docker
+          CATALINA_OPTS: -agentlib:jdwp=transport=dt_socket,address=*:8218,server=y,suspend=n
+    environment:
+        SPRING_PROFILES_ACTIVE: docker
+    ports:
+      - "8077:8077"
+    networks:
+      - bigdata-training
+
+  # ===================
+  #    POSTGRESQL
+  # ===================
+
+  # big-data-training-postgres:
+  #   image: postgres:14-alpine
+  #   ports:
+  #     - 5532:5432
+  #   volumes:
+  #     - /home/maestros/devops-space/bigdata/data/bigdata-training/deployment/docker/volumes/postgres/data:/var/lib/postgresql/data
+  #   environment:
+  #     - POSTGRES_PASSWORD=PassWord23!
+  #     - POSTGRES_USER=consult
+  #     - POSTGRES_DB=jea_db
+  #   expose:
+  #     - 5532
+  #   networks:
+  #     - bigdata-training
+
+  # ===================
+  #    ELASTICSEARCH 
+  # ===================
+
+  # big-data-training-elasticsearch:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:8.4.2
+  #   # container_name: elasticsearch
+  #   environment:
+  #     - xpack.security.enabled=false
+  #     - discovery.type=single-node
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #     nofile:
+  #       soft: 65536
+  #       hard: 65536
+  #   cap_add:
+  #     - IPC_LOCK
+  #   volumes:
+  #     - /home/maestros/devops-space/bigdata/data/bigdata-training/deployment/docker/volumes/elasticsearch-data:/usr/share/elasticsearch/data
+  #   ports:
+  #     - 9200:9200
+  #     - 9300:9300
+  #   expose:
+  #     - 9200
+  #   networks:
+  #     - bigdata-training
+
+  # big-data-training-kibana:
+  #   # container_name: kibana
+  #   image: docker.elastic.co/kibana/kibana:8.4.2
+  #   environment:
+  #     - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+  #   ports:
+  #     - 5601:5601
+  #   depends_on:
+  #     - big-data-training-elasticsearch
+  #   expose:
+  #     - 5601
+  #   networks:
+  #     - bigdata-training
+  
+  # ===================
+  #      HBASE
+  # ===================
+
+  # big-data-training-hbase-master:
+  #   image: blueskyareahm/hbase-base:2.1.3
+  #   command: master
+  #   ports:
+  #     - 16000:16000
+  #     - 16010:16010
+  #   expose:
+  #     - 16000
+  #   networks:
+  #     - bigdata-training
+
+  # big-data-training-hbase-regionserver:
+  #   image: blueskyareahm/hbase-base:2.1.3
+  #   command: regionserver
+  #   ports:
+  #     - 16030:16030
+  #     - 16201:16201
+  #     - 16301:16301
+  #   expose:
+  #     - 16030
+  #   networks:
+  #     - bigdata-training
+
+  # big-data-training-zookeeper:
+  #   image: blueskyareahm/hbase-zookeeper:3.4.13
+  #   ports:
+  #     - 2181:2181
+  #   expose:
+  #     - 2181
+  #   networks:
+  #     - bigdata-training
+
+
+  # ===================
+  #      CASSANDRA
+  # ===================
+
+  # big-data-training-cassandra:
+  #   image: cassandra:4.0
+  #   ports:
+  #     - 9042:9042
+  #   volumes:
+  #     - /home/maestros/devops-space/bigdata/data/bigdata-training/deployment/docker/volumes/cassandra/data:/var/lib/cassandra
+  #   environment:
+  #     - CASSANDRA_CLUSTER_NAME=cedric
+  #   expose:
+  #     - 9042
+  #   networks:
+  #     - bigdata-training
+
+  # ===================
+  #    SPARK CLUSTER
+  # ===================
+
+  # big-data-training-spark:
+  #   image: docker.io/bitnami/spark:3.3
+  #   environment:
+  #     - SPARK_MODE=master
+  #     - SPARK_RPC_AUTHENTICATION_ENABLED=no
+  #     - SPARK_RPC_ENCRYPTION_ENABLED=no
+  #     - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+  #     - SPARK_SSL_ENABLED=no
+  #   ports:
+  #     - '7070:8080'
+  #   networks:
+  #     - bigdata-training
+
+  # big-data-training-spark-worker-1:
+  #   image: docker.io/bitnami/spark:3.3
+  #   environment:
+  #     - SPARK_MODE=worker
+  #     - SPARK_MASTER_URL=spark://spark:7077
+  #     - SPARK_WORKER_MEMORY=1G
+  #     - SPARK_WORKER_CORES=1
+  #     - SPARK_RPC_AUTHENTICATION_ENABLED=no
+  #     - SPARK_RPC_ENCRYPTION_ENABLED=no
+  #     - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+  #     - SPARK_SSL_ENABLED=no
+  #   networks:
+  #     - bigdata-training
+
+  # big-data-training-spark-worker-2:
+  #   image: docker.io/bitnami/spark:3.3
+  #   environment:
+  #     - SPARK_MODE=worker
+  #     - SPARK_MASTER_URL=spark://spark:7077
+  #     - SPARK_WORKER_MEMORY=1G
+  #     - SPARK_WORKER_CORES=1
+  #     - SPARK_RPC_AUTHENTICATION_ENABLED=no
+  #     - SPARK_RPC_ENCRYPTION_ENABLED=no
+  #     - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+  #     - SPARK_SSL_ENABLED=no
+  #   networks:
+  #     - bigdata-training
+
+networks:
+  bigdata-training:
+    driver: bridge
+  
