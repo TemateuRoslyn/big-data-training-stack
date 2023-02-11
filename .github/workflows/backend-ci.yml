@@ -1,6 +1,6 @@
 name: scala backend ci
 
-on:
+on
   push:
     branches: [ main ]
   pull_request:
