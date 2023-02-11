@@ -11,7 +11,6 @@ on:
 
 jobs:
   scala-backend-app:
-    runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./src/backend/scala/big-data-training-prod
