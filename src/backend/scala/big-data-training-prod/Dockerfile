@@ -1,11 +1,8 @@
 FROM maven:3.6.3-openjdk-8 AS build
 WORKDIR /app
 COPY . /app/
-RUN mvn -B -f /app/pom.xml clean -DskipTests 
-RUN mvn -B -f /app/pom.xml install -DskipTests 
-RUN mvn -B -f /app/pom.xml package -DskipTests
-RUN mvn -B -f /app/pom.xml scala:cc -Donce=true -Dfsc=false -DskipTests
-RUN mvn -B -f /app/pom.xml scala:run -Dskip3Tests
+
+RUN mvn -B -f /app/pom.xml  exec:exec@clean exec:exec@install exec:exec@package exec:exec@scalac exec:exec@scalar -DskipTests 
 RUN ls /app
 
 FROM tomcat:9.0

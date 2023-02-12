@@ -253,6 +253,102 @@
                 </configuration>
             </plugin>
 
+            <!-- plugin to execute a custom  script on maven pom.xml file -->
+
+            <plugin>
+                <artifactId>exec-maven-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <executions>
+
+                <!-- mvn clean -->
+
+                    <execution>
+                        <id>clean</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>clean</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <!-- mvn install -->
+
+                    <execution>
+                        <id>install</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>install</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <!-- mvn package -->
+
+                    <execution>
+                        <id>package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>package</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <!-- scala code compiling -->
+                    <!-- mvn scala:cc -Donce=true -Dfsc=false -->
+
+                    <execution>
+                        <id>scalac</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>scala:cc</argument>
+                                <argument>-Donce=true</argument>
+                                <argument>-Dfsc=false</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                    <!-- runing the scala code -->
+                    <!-- mvn scala:run -->
+
+                    <execution>
+                        <id>scalar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>mvn</executable>
+                            <arguments>
+                                <argument>scala:run</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+
+                </executions>
+            </plugin>
+
+
+            <!-- assenbly plugin -->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
