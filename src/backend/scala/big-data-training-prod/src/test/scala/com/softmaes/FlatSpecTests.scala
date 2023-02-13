@@ -5,7 +5,7 @@ import org.scalatest.matchers.should.Matchers._
 class FlatSpecTests extends AnyFlatSpec {
 
   "La session Spark" should(" doit être non null") in {
-    assert(utilities.UtilsSpark.sparkSession(true) != null)
+    assert(utils.UtilsSpark.sparkSession(true) != null)
   }
 
   it should("Il doit renvoyer l'exception OutofBound error") in {

@@ -3,7 +3,7 @@
 // import org.apache.spark.sql.types.{DoubleType, IntegerType, StringType, StructField, StructType, TimestampType}
 // import org.apache.spark.sql.{SaveMode, SparkSession}
 
-// import com.softmaes.utilities.UtilsSpark
+// import com.softmaes.utils.UtilsSpark
 
 // object SparkAndHive {
 

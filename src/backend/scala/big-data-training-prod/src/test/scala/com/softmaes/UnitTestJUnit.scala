@@ -5,7 +5,7 @@ class UnitTestJUnit {
 
   @Test
   def testValidSparkSession(): Unit = {
-    val sparkSession = utilities.UtilsSpark.sparkSession()
+    val sparkSession = utils.UtilsSpark.sparkSession()
     assertNotNull("Cette fonction doit retourner un objet non vide", sparkSession)
   }
 

@@ -8,7 +8,7 @@
 // import java.io.IOException
 // import java.util.Properties
 
-// import com.softmaes.utilities.UtilsSpark
+// import com.softmaes.utils.UtilsSpark
 
 // object SparkCassandra {
 

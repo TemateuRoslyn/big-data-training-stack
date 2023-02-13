@@ -2,7 +2,7 @@
 
 // import org.apache.spark.sql.SparkSession
 // import org.apache.spark.sql.types.{DoubleType, IntegerType, StringType, StructField, StructType, TimestampType}
-// import com.softmaes.utilities.UtilsSpark
+// import com.softmaes.utils.UtilsSpark
 // import org.elasticsearch.spark.sql._
 // import org.apache.commons.httpclient.HttpConnectionManager
 // import org.apache.commons.httpclient._

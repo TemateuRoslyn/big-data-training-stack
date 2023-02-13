@@ -7,7 +7,7 @@ import org.apache.spark.sql.{DataFrame, SparkSession}
 import java.sql.{SQLException, SQLSyntaxErrorException}
 import java.util.Properties
 
-import com.softmaes.utilities.UtilsSpark
+import com.softmaes.utils.UtilsSpark
 
 object SparkAndMysql {
 

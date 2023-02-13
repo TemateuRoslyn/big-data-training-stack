@@ -6,7 +6,7 @@
 // import java.sql.{SQLException, SQLSyntaxErrorException}
 // import java.util.Properties
 
-// import com.softmaes.utilities.UtilsSpark
+// import com.softmaes.utils.UtilsSpark
 
 // object SparkAndPostgresql {
 //   val properties = new Properties();

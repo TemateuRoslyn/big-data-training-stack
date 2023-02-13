@@ -4,7 +4,7 @@ import org.apache.spark.sql.SaveMode
 import org.apache.spark.sql.functions.{col, lit, substring, when}
 import org.apache.spark.sql.types.{StringType, StructField, StructType}
 
-import com.softmaes.utilities.UtilsSpark
+import com.softmaes.utils.UtilsSpark
 
 import java.io.File
 

@@ -1,4 +1,4 @@
-package com.softmaes.utilities
+package com.softmaes.utils
 
 import org.apache.logging.log4j.{LogManager, Logger}
 import org.apache.spark.sql.SparkSession

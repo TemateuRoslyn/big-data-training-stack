@@ -7,7 +7,7 @@
 // import org.apache.hadoop.hbase.spark.HBaseContext
 // import org.apache.hadoop.hbase.HBaseConfiguration
 
-// import com.softmaes.utilities.UtilsSpark
+// import com.softmaes.utils.UtilsSpark
 
 // object SparkAndHbase {
 
