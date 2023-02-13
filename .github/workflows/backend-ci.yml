@@ -35,3 +35,4 @@ jobs:
       run: mvn -B scala:cc -Donce=true -Dfsc=false -DskipTests
     - name: Run the scala app
       run: mvn -B scala:run -Dskip3Tests
+      
