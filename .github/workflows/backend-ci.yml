@@ -2,9 +2,9 @@ name: scala-backend-ci
 
 on:
   push:
-    branches: [ main ]
+    branches: [ maestros ]
   pull_request:
-    branches: [ main ]
+    branches: [ maestros ]
   schedule:
     # min hours day(month) month day(week)
     - cron: '0 0 */5 * *'
