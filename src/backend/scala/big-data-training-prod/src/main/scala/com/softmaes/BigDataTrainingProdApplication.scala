@@ -4,6 +4,7 @@ import com.softmaes.sparkbdd.SparkAndMysql
 
 object BigDataTrainingProdApplication {
     def main(args: Array[String]) =  {
-         SparkAndMysql.run()
+        //  SparkAndMysql.run()
+        println("hello from scala")
     }
 }
