@@ -1,0 +1,27 @@
+name: scala-backend-ci
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    # min hours day(month) month day(week)
+    - cron: '0 0 */5 * *'
+
+jobs:
+  scala-backend-app:
+    strategy:
+      matrix:
+        java: [ '8']
+        os: [ 'ubuntu-latest' ]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK
+      uses: actions/setup-java@v1
+      with:
+        java-version: ${{ matrix.java }}
+    - name: deploy the project
+      run: sh docker-run.sh
+      

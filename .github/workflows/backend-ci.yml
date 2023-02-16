@@ -1,11 +1,10 @@
 name: scala-backend-ci
 
-
 on:
   push:
-    branches: [ main ]
+    branches: [ maestros ]
   pull_request:
-    branches: [ main ]
+    branches: [ maestros ]
   schedule:
     # min hours day(month) month day(week)
     - cron: '0 0 */5 * *'
@@ -17,7 +16,7 @@ jobs:
         working-directory: ./src/backend/scala/big-data-training-prod
     strategy:
       matrix:
-        java: [ '8' ]
+        java: [ '8']
         os: [ 'ubuntu-latest' ]
     runs-on: ${{ matrix.os }}
     steps:
