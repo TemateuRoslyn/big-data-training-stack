@@ -1,5 +1,6 @@
 name: scala-backend-ci
 
+
 on:
   push:
     branches: [ main ]
