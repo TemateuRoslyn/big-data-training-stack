@@ -1,37 +1,22 @@
-name: scala-backend-ci
+name: backend-ci
 
 on:
   push:
-    branches: [ maestros ]
+    branches: [ main ]
   pull_request:
-    branches: [ maestros ]
+    branches: [ main ]
   schedule:
     # min hours day(month) month day(week)
     - cron: '0 0 */5 * *'
 
 jobs:
-  scala-backend-app:
-    defaults:
-      run:
-        working-directory: ./src/backend/scala/big-data-training-prod
+  backend-ci-app:
     strategy:
       matrix:
-        java: [ '8' ]
         os: [ 'ubuntu-latest' ]
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
-    - name: Set up JDK
-      uses: actions/setup-java@v1
-      with:
-        java-version: ${{ matrix.java }}
-    - name: Clean all the datas
-      run: mvn -B clean -DskipTests
-    - name: Instal the dependencies
-      run: mvn -B install -DskipTests
-    - name: Build the app package (jar file)
-      run: mvn -B package -DskipTests
-    - name: Compile the scala project with scalac
-      run: mvn -B scala:cc -Donce=true -Dfsc=false -DskipTests
-    - name: Run the scala app
-      run: mvn -B scala:run -Dskip3Tests
+    - name: deploy the project
+      run: sh docker-run.sh
+      
